@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,9 @@
       background-color: #4CAF50;
       color: white;
       padding: 14px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
       font-size: 18px;
       border-radius: 10px;
       margin-top: 20px;
@@ -26,30 +30,43 @@
       animation: zoomIn 0.8s ease;
     }
     img {
-      max-width: 750px;
-      width: 98%;
+      max-width: 650px;
+      width: 95%%;
+      height: auto;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
+
     @keyframes zoomIn {
-      from { transform: scale(0.5); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
+
     canvas#confetti-canvas {
       position: fixed;
       top: 0; left: 0;
-      width: 100%; height: 100%;
+      width: 100%%;
+      height: 100%%;
       pointer-events: none;
       z-index: 1000;
     }
-    .hidden { display: none; }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div id="text-area">
     <h1>Thiệp mời tốt nghiệp</h1>
     <p>Nhấn vào nút bên dưới để xem thiệp</p>
-    <div class="button" onclick="showImage()">Việc xem thiệp của bạn</div>
+    <div class="button" onclick="showImage()">Mong các bạn đến dự lễ</div>
   </div>
 
   <div id="thiep">
@@ -68,7 +85,7 @@
     }
 
     function launchConfetti() {
-      var duration = 3000;
+      var duration = 3 * 1000;
       var animationEnd = Date.now() + duration;
       var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
 
@@ -78,8 +95,18 @@
 
       var interval = setInterval(function() {
         var timeLeft = animationEnd - Date.now();
-        if (timeLeft <= 0) return clearInterval(interval);
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
         var particleCount = 50 * (timeLeft / duration);
         confetti(Object.assign({}, defaults, {
           particleCount,
-          origin: { x: randomInRange(0.1, 0.9), y: Math.random
+          origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 }
+        }));
+      }, 250);
+    }
+  </script>
+</body>
+</html>
