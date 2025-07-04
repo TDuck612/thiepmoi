@@ -10,16 +10,17 @@
       background-color: #f0f0f0;
       text-align: center;
       padding: 50px;
+      overflow-x: hidden;
     }
     .button {
       background-color: #4CAF50;
       color: white;
-      padding: 14px 25px;
+      padding: 14px 30px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 16px;
-      border-radius: 8px;
+      font-size: 18px;
+      border-radius: 10px;
       margin-top: 20px;
       cursor: pointer;
     }
@@ -29,11 +30,11 @@
       animation: zoomIn 0.8s ease;
     }
     img {
-      max-width: 500px;
-      width: 90%%;
+      max-width: 650px;
+      width: 95%%;
       height: auto;
       border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
     @keyframes zoomIn {
@@ -46,20 +47,58 @@
         opacity: 1;
       }
     }
-  </style>
-  <script>
-    function showImage() {
-      document.getElementById('thiep').style.display = 'block';
+
+    canvas#confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%%;
+      height: 100%%;
+      pointer-events: none;
+      z-index: 1000;
     }
-  </script>
+  </style>
 </head>
 <body>
   <h1>Thiệp mời tốt nghiệp</h1>
   <p>Nhấn vào nút bên dưới để xem thiệp</p>
-  <div class="button" onclick="showImage()">Xem Thiệp</div>
+  <div class="button" onclick="showImage()">Mong các bạn đến dự lễ</div>
 
   <div id="thiep">
     <img src="cac-ban.jpg" alt="Thiệp mời">
   </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    function showImage() {
+      document.getElementById('thiep').style.display = 'block';
+      launchConfetti();
+    }
+
+    function launchConfetti() {
+      var duration = 3 * 1000;
+      var animationEnd = Date.now() + duration;
+      var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      var interval = setInterval(function() {
+        var timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        var particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 }
+        }));
+      }, 250);
+    }
+  </script>
 </body>
 </html>
