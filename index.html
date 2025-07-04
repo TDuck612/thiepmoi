@@ -21,23 +21,42 @@
       font-size: 16px;
       border-radius: 8px;
       margin-top: 20px;
+      cursor: pointer;
     }
     #thiep {
       margin-top: 30px;
       display: none;
+      animation: zoomIn 0.8s ease;
     }
     img {
-      max-width: 90%%;
+      max-width: 500px;
+      width: 90%%;
       height: auto;
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
   </style>
+  <script>
+    function showImage() {
+      document.getElementById('thiep').style.display = 'block';
+    }
+  </script>
 </head>
 <body>
   <h1>Thiệp mời tốt nghiệp</h1>
   <p>Nhấn vào nút bên dưới để xem thiệp</p>
-  <a href="#!" class="button" onclick="document.getElementById('thiep').style.display='block'">Xem Thiệp</a>
+  <div class="button" onclick="showImage()">Xem Thiệp</div>
 
   <div id="thiep">
     <img src="cac-ban.jpg" alt="Thiệp mời">
